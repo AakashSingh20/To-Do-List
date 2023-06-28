@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Todo.css";
+import logo from "./notes.png"
+import add from "./add.png"
+import edit from "./edit.png"
+import trash from "./remove.png"
 
 const getLocalData = () => {
   const lists = localStorage.getItem("todolist");
@@ -15,7 +19,6 @@ export default function Todo() {
   const [items, setItems] = useState(getLocalData());
   const [toEdit, setToEdit] = useState("");
   const [toggle, settoggle] = useState(false);
-  //   console.log(inputdata);
 
   const addItem = () => {
     if (!inputdata) {
@@ -41,7 +44,6 @@ export default function Todo() {
       setInputdata("");
     }
   };
-  //   console.log(items);
 
   const editItem = (index) => {
     const to_edit = items.find((curElem) => {
@@ -71,17 +73,19 @@ export default function Todo() {
   return (
     <>
       <div className="container">
+        <div className="logo"><img src={logo} alt="logo" /></div>
         <div className="title">Add your list here!</div>
         <div className="add">
           <input
             type="text"
             value={inputdata}
             onChange={(event) => setInputdata(event.target.value)}
+            placeholder="Write here.."
           />
           {toggle ? (
-            <button onClick={addItem}>Upd</button>
+            <button onClick={addItem}></button>
           ) : (
-            <button onClick={addItem}>Add</button>
+            <button className="addBut" onClick={addItem}><img src={add} alt="add" /></button>
           )}
         </div>
 
@@ -93,8 +97,8 @@ export default function Todo() {
                   <h4>{curElem.name}</h4>
                 </div>
                 <div className="div">
-                  <button onClick={() => editItem(curElem.id)}>edit</button>
-                  <button onClick={() => deleteItem(curElem.id)}>trash</button>
+                  <button className="divBut" onClick={() => editItem(curElem.id)}><img src={edit} alt="edit" /></button>
+                  <button className="divBut" onClick={() => deleteItem(curElem.id)}><img src={trash} alt="delete" /></button>
                 </div>
               </div>
             );
